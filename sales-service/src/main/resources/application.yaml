@@ -1,0 +1,9 @@
+server:
+  port: ${services.sales.port}
+spring:
+  application:
+    name: sales-service
+    label: ${spring.application.name}
+    base-package: ${services.sales.packages}
+upload:
+  path: /test

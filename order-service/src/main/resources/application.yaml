@@ -1,0 +1,9 @@
+server:
+  port: ${services.order.port}
+spring:
+  application:
+    name: order-service
+    label: ${spring.application.name}
+    base-package: ${services.order.packages}
+upload:
+  path: /test

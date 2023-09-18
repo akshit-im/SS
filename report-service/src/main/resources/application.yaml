@@ -1,0 +1,9 @@
+server:
+  port: ${services.report.port}
+spring:
+  application:
+    name: report-service
+    label: ${spring.application.name}
+    base-package: ${services.report.packages}
+upload:
+  path: /test

@@ -1,0 +1,9 @@
+server:
+  port: ${services.inventory.port}
+spring:
+  application:
+    name: inventory-service
+    label: ${spring.application.name}
+    base-package: ${services.inventory.packages}
+upload:
+  path: /test

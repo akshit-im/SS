@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitlab.com/JMaverick/config-server
+          username: sudeepsingh.np@gmail.coom
+          password: glpat-MfLRbdQnLKiYAZhHQ4UW
+server:
+  port: 9196 

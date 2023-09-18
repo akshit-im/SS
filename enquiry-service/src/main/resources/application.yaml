@@ -1,0 +1,7 @@
+server:
+  port: ${services.enquiry.port}
+spring:
+  application:
+    name: enquiry-service
+    label: ${spring.application.name}
+    base-package: ${services.enquiry.packages}

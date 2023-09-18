@@ -1,0 +1,9 @@
+server:
+  port: ${services.user.port}
+spring:
+  application:
+    name: user-service
+    label: ${spring.application.name}
+    base-package: ${services.user.packages}
+upload:
+  path: /test

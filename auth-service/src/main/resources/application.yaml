@@ -1,0 +1,22 @@
+server:
+  port: ${services.auth.port}
+spring:
+  application:
+    name: auth-service
+    label: ${spring.application.name}
+    base-package: ${services.auth.packages}
+#  web:
+#    cors:
+#      '[/**]':
+#        allowedOrigins:
+#        - 'http://localhost:4200'
+#        allowedHeaders: "*"
+#        allowedMethods: 
+#        - GET
+#        - POST
+#        - PATCH
+#        - PUT
+#        - DELETE
+#        - OPTIONS
+#        - HEAD
+#        maxAge: 3600s
