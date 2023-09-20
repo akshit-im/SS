@@ -1,11 +1,8 @@
 package com.amdocs.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.BeanUtils;
 
@@ -16,36 +13,28 @@ public class BrandDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private UUID id;
+	private String id;
 
 	@NotBlank
-	@NotEmpty
 	private String name;
 
 	@NotBlank
-	@NotEmpty
 	private String description;
 
 	@NotBlank
-	@NotEmpty
 	private Integer status;
 
 	@NotBlank
-	@NotEmpty
 	private Integer displayType;
 
-	private Date doe;
-
-	private Date dom;
-
-	public Brand brand() {
+	public Brand get() {
 		Brand obj = new Brand();
+		this.id = null;
 		BeanUtils.copyProperties(this, obj);
 		return obj;
 	}
 
-	public Brand brand(Brand obj) {
-		this.id = obj.getId();
+	public Brand get(Brand obj) {
 		BeanUtils.copyProperties(this, obj);
 		return obj;
 	}

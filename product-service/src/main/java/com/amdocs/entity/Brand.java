@@ -29,20 +29,20 @@ public class Brand implements Serializable {
 	@Column(name = "ID", nullable = false, unique = true, updatable = false)
 	private UUID id;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "NAME", nullable = false, unique = true)
 	private String name;
 
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@Column(name = "STATUS")
+	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "DISPLAY_TYPE")
+	@Column(name = "DISPLAY_TYPE", nullable = false)
 	private Integer displayType;
 
 	@CreationTimestamp
-	@Column(name = "DOE")
+	@Column(name = "DOE", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date doe;
 

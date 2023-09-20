@@ -73,6 +73,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@ExceptionHandler(RecordNotFound.class)
+	public ResponseEntity<Object> handle(RecordNotFound exception, WebRequest request) {
+		return buildErrorResponse(exception, "RecordNotFound", HttpStatus.NOT_FOUND);
+	}
+
 	@ExceptionHandler
 	public ResponseEntity<Object> handle(Throwable exception, WebRequest request) {
 		ErrorResponse errorResponse = new ErrorResponse(401, exception.getMessage());
