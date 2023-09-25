@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import com.amdocs.entity.AppEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +24,7 @@ import lombok.ToString.Exclude;
 @Data
 @Entity
 @Table(name = "GEO_COUNTRY")
-public class Country implements Serializable {
+public class Country implements Serializable, AppEntity {
 
 	public Country() {
 		super();
@@ -47,9 +48,6 @@ public class Country implements Serializable {
 
 	@Column(name = "CODE_2")
 	private String code2;
-
-	@Column(name = "ISD")
-	private String isd;
 
 	@Column(name = "PH_CODE")
 	private String phCode;
@@ -88,7 +86,7 @@ public class Country implements Serializable {
 	private List<TimeZone> timeZone = new LinkedList<TimeZone>();
 
 	public String getIsdName() {
-		return isd + " (" + name + ")";
+		return phCode + " (" + name + ")";
 	}
 
 }

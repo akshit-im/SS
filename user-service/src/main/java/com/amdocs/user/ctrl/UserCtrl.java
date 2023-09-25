@@ -32,7 +32,7 @@ import com.amdocs.user.entity.Type;
 import com.amdocs.user.entity.User;
 import com.amdocs.user.repo.UserService;
 
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @RestController
 class UserCtrl {
 

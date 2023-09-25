@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.amdocs.entity.AppEntity;
+import com.amdocs.geo.entity.City;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -78,6 +79,9 @@ public class User implements Serializable, AppEntity {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
+	@Column(name = "WEBSITE")
+	private String website;
+
 	@CreationTimestamp
 	@Column(name = "ENTRY_DATE", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -100,4 +104,10 @@ public class User implements Serializable, AppEntity {
 	@JoinColumn(name = "TYPE_ID", nullable = false)
 	private Type type;
 
+	@Column(name = "ORG_TYPE")
+	private String orgType;
+
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = City.class)
+	@JoinColumn(name = "CITY_ID")
+	private City city;
 }

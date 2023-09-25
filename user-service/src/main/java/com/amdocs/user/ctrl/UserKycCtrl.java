@@ -33,7 +33,7 @@ import com.amdocs.user.entity.UserKyc;
 import com.amdocs.user.repo.UserService;
 import com.google.common.io.Files;
 
-@RequestMapping("/user/kyc")
+@RequestMapping("/kyc")
 @RestController
 class UserKycCtrl {
 

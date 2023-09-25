@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.BeanUtils;
 
-import com.amdocs.geo.entity.Country;
+import com.amdocs.geo.entity.City;
 import com.amdocs.user.entity.Role;
 import com.amdocs.user.entity.Status;
 import com.amdocs.user.entity.Type;
@@ -35,9 +35,6 @@ public class ReqisterReq extends TokenReq implements Serializable {
 	private Status status;
 
 	@NotBlank
-	private Country country;
-
-	@NotBlank
 	private String name;
 
 	private String code;
@@ -45,11 +42,16 @@ public class ReqisterReq extends TokenReq implements Serializable {
 	@NotBlank
 	private Long mobile;
 
-	private Boolean accountLocked = true;
-
 	@Email
 	@NotBlank
 	private String email;
+
+	@NotBlank
+	private City city;
+
+	private String website;
+
+	private Boolean accountLocked = false;
 
 	public User entity() {
 		User obj = new User();

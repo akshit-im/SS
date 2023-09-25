@@ -3,7 +3,6 @@ package com.amdocs.geo.ctrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,12 +23,12 @@ class GeoCtrl {
 		return ResponseEntity.ok(geoSvc.country());
 	}
 
-	@PostMapping(value = "/state")
+	@GetMapping(value = "/state")
 	public ResponseEntity<?> state(@RequestBody Country country) throws Throwable {
 		return ResponseEntity.ok(geoSvc.state(country));
 	}
 
-	@PostMapping(value = "/city")
+	@GetMapping(value = "/city")
 	public ResponseEntity<?> city(@RequestBody State state) throws Throwable {
 		return ResponseEntity.ok(geoSvc.city(state));
 	}

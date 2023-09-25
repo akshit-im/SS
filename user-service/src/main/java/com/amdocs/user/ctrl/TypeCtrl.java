@@ -15,7 +15,7 @@ import com.amdocs.user.entity.Type;
 import com.amdocs.user.repo.UserService;
 
 @RestController
-@RequestMapping("/api/types")
+@RequestMapping("/types")
 class TypeCtrl {
 
 	@Autowired

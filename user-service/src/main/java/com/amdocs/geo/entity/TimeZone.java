@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.amdocs.entity.AppEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "GEO_TIME_ZONE")
-public class TimeZone implements Serializable {
+public class TimeZone implements Serializable, AppEntity {
 
 	private static final long serialVersionUID = 1L;
 

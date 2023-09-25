@@ -20,7 +20,7 @@ import com.amdocs.user.dto.UserAddressReq;
 import com.amdocs.user.entity.Address;
 import com.amdocs.user.repo.UserService;
 
-@RequestMapping("/api/user/addrs")
+@RequestMapping("/user/addrs")
 @RestController
 class AddressCtrl {
 

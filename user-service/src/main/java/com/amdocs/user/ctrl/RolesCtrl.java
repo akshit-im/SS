@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amdocs.user.repo.UserService;
 
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/roles")
 class RolesCtrl {
 
 	@Autowired

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+import com.amdocs.entity.AppEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -22,7 +23,7 @@ import lombok.ToString.Exclude;
 @Data
 @Entity
 @Table(name = "GEO_STATE", uniqueConstraints = {@UniqueConstraint(columnNames = {"COUNTRY_ID", "NAME"})})
-public class State implements Serializable {
+public class State implements Serializable, AppEntity {
 
 	private static final long serialVersionUID = 1L;
 

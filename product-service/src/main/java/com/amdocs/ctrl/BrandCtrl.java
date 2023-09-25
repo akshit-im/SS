@@ -28,7 +28,7 @@ import com.amdocs.general.AppConstant;
 import com.amdocs.repo.ProductService;
 import com.google.common.io.Files;
 
-@RequestMapping("/api/product/brand")
+@RequestMapping("/product/brand")
 @RestController
 class BrandCtrl {
 

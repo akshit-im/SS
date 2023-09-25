@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.amdocs.entity.AppEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +22,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "GEO_CITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"STATE_ID", "NAME"})})
-public class City implements Serializable {
+public class City implements Serializable, AppEntity {
 
 	private static final long serialVersionUID = 1L;
 

@@ -40,7 +40,7 @@ import com.amdocs.user.entity.RefreshToken;
 import com.amdocs.user.entity.User;
 import com.amdocs.user.entity.UserPrincipal;
 import com.amdocs.user.repo.UserService;
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RestController
 @CrossOrigin
 class AuthenticationCtrl {
