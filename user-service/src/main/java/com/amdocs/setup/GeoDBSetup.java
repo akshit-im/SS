@@ -4,19 +4,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.UUID;
 
+import org.hibernate.id.UUIDGenerator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.amdocs.geo.entity.City;
@@ -60,14 +63,14 @@ public class GeoDBSetup {
 			return;
 		}
 		String[] line = null;
+		Map<Integer, UUID> countryMap = new HashMap<>();
 		List<Country> countryList = new LinkedList<Country>();
 		while (scanner.hasNextLine()) {
 			line = scanner.nextLine().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-			// System.out.println(Arrays.toString(line));
 			if (line[0].equalsIgnoreCase("id"))
 				continue;
 			Country country = new Country();
-			country.setId(line[0].trim());
+			country.setId(UUID.randomUUID());
 			country.setName(line[1]);
 			country.setCode(line[2]);
 			country.setCode2(line[3]);
@@ -78,7 +81,6 @@ public class GeoDBSetup {
 			country.setRegion(line[12]);
 			country.setSubRegion(line[13]);
 			country.setStatus(1);
-			// System.out.println(line[14].replaceAll("\"", ""));
 			JSONArray zoneArray = new JSONArray(line[14].replaceAll("\"", ""));
 			Set<TimeZone> timeZoneListIn = new HashSet<TimeZone>();
 			for (int i = 0; i < zoneArray.length(); i++) {
@@ -109,9 +111,9 @@ public class GeoDBSetup {
 			country.setTimeZone(timeZoneListFinal);
 			country.setLatitude(line[15]);
 			country.setLongitude(line[16]);
+			countryMap.put(Integer.parseInt(line[0].trim()), country.getId());
 			countryList.add(country);
 		}
-		System.out.println("country count" + countryList.size());
 		geoSvc.saveCountry(countryList);
 
 		File stateFile = null;
@@ -134,16 +136,16 @@ public class GeoDBSetup {
 			System.err.println("Error: File " + stateFile.getAbsolutePath() + " cannot be opened for reading.\n");
 			return;
 		}
+		Map<Integer, UUID> stateMap = new HashMap<>();
 		Set<State> stateList = new HashSet<State>();
 		while (scanner.hasNextLine()) {
 			line = scanner.nextLine().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-			// System.out.println(Arrays.toString(line));
 			if (line[0].equalsIgnoreCase("id"))
 				continue;
 			State state = new State();
-			state.setId(line[0]);
+			state.setId(UUID.randomUUID());
 			state.setName(line[1].replace("\"", "").trim());
-			state.setCountry(new Country(line[2].trim()));
+			state.setCountry(new Country(countryMap.get(Integer.parseInt(line[2].trim()))));
 			state.setCode(line[5]);
 			try {
 				state.setType(line[6]);
@@ -152,6 +154,7 @@ public class GeoDBSetup {
 			} catch (Exception e) {
 			}
 			state.setStatus(1);
+			stateMap.put(Integer.parseInt(line[0].trim()), state.getId());
 			stateList.add(state);
 		}
 		System.out.println("State count" + stateList.size());
@@ -184,7 +187,7 @@ public class GeoDBSetup {
 				continue;
 			City city = new City();
 			city.setName(line[1].replace("\"", "").trim());
-			city.setState(new State(line[11]));
+			city.setState(new State(stateMap.get(Integer.parseInt(line[2].trim()))));
 			try {
 				city.setLatitude(line[8]);
 				city.setLongitude(line[9]);
@@ -193,9 +196,7 @@ public class GeoDBSetup {
 			city.setStatus(1);
 			cityList.add(city);
 		}
-		System.out.println("City count" + cityList.size());
 		geoSvc.saveCity(cityList);
 
 	}
-
 }

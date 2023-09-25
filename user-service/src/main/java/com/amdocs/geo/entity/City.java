@@ -1,6 +1,7 @@
 package com.amdocs.geo.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
@@ -18,7 +19,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "CITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"STATE_ID", "NAME"})})
+@Table(name = "GEO_CITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"STATE_ID", "NAME"})})
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,7 +28,7 @@ public class City implements Serializable {
 	@UuidGenerator
 	@GeneratedValue
 	@Column(name = "ID", nullable = false, updatable = false, unique = true)
-	private String id;
+	private UUID id;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = State.class)
 	@JoinColumn(name = "STATE_ID", nullable = false)

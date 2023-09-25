@@ -3,6 +3,7 @@ package com.amdocs.geo.entity;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,22 +22,22 @@ import lombok.ToString.Exclude;
 
 @Data
 @Entity
-@Table(name = "COUNTRY")
+@Table(name = "GEO_COUNTRY")
 public class Country implements Serializable {
 
 	public Country() {
 		super();
 	}
 
-	public Country(String id) {
+	public Country(UUID id) {
 		this.id = id;
 	}
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false, unique = true)
-	private String id;
+	@Column(name = "ID", nullable = false, unique = true, updatable = false)
+	private UUID id;
 
 	@Column(name = "NAME", unique = true, nullable = false)
 	private String name;

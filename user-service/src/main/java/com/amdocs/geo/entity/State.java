@@ -2,8 +2,7 @@ package com.amdocs.geo.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.annotations.UuidGenerator;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,7 +10,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,7 +21,7 @@ import lombok.ToString.Exclude;
 
 @Data
 @Entity
-@Table(name = "STATE", uniqueConstraints = {@UniqueConstraint(columnNames = {"COUNTRY_ID", "NAME"})})
+@Table(name = "GEO_STATE", uniqueConstraints = {@UniqueConstraint(columnNames = {"COUNTRY_ID", "NAME"})})
 public class State implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,14 +30,14 @@ public class State implements Serializable {
 		super();
 	}
 
-	public State(String id) {
+	public State(UUID id) {
 		super();
 		this.id = id;
 	}
 
 	@Id
-	@Column(name = "ID", nullable = false, unique = true)
-	private String id;
+	@Column(name = "ID", nullable = false, unique = true, updatable = false)
+	private UUID id;
 
 	@Exclude
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Country.class)

@@ -3360,12 +3360,10 @@ id,name,country_id,country_code,country_name,state_code,type,latitude,longitude
 3415,Kinmen,216,TW,Taiwan,KIN,county,24.3487792,118.3285644
 3416,Yunlin,216,TW,Taiwan,YUN,county,23.7092033,120.4313373
 3417,Hsinchu,216,TW,Taiwan,HSZ,city,24.8138287,120.9674798
-3418,Chiayi,216,TW,Taiwan,CYQ,county,23.4800751,120.4491113
 3419,Taoyuan,216,TW,Taiwan,TAO,special municipality,24.9936281,121.3009798
 3420,Lienchiang,216,TW,Taiwan,LIE,county,26.1505556,119.9288889
 3421,Tainan,216,TW,Taiwan,TNN,special municipality,22.9997281,120.2270277
 3422,Taipei,216,TW,Taiwan,TPE,special municipality,25.0329694,121.5654177
-3423,Hsinchu,216,TW,Taiwan,HSQ,county,24.8387226,121.0177246
 3424,Northern Red Sea Region,68,ER,Eritrea,SK,,16.2583997,38.8205454
 3425,Anseba Region,68,ER,Eritrea,AN,,16.4745531,37.8087693
 3426,Maekel Region,68,ER,Eritrea,MA,,15.3551409,38.8623683
