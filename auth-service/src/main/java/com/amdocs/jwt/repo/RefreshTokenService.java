@@ -37,6 +37,7 @@ public class RefreshTokenService {
 	@Transactional
 	public RefreshToken createRefreshToken(User user) throws Throwable {
 		RefreshToken refreshToken = new RefreshToken();
+		System.out.println(user);
 		refreshToken.setUser(user);
 		refreshToken.setExpiryDate(Instant.now().plusMillis(refreshExpiration * 1000));
 		refreshToken.setToken(UUID.randomUUID().toString());

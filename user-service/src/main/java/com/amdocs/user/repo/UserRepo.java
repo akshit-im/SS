@@ -15,19 +15,22 @@ import com.amdocs.user.entity.User;
 @Repository
 interface UserRepo extends JpaRepository<User, UUID> {
 
+	@EntityGraph(attributePaths = {"type", "refId", "status", "roles"})
 	public User findByCode(String userCode);
 
+	@EntityGraph(attributePaths = {"type", "refId", "status", "roles"})
 	public User findByMobile(Long mobile);
 
+	@EntityGraph(attributePaths = {"type", "refId", "status", "roles"})
 	public User findByEmail(String email);
 
 }
 
 interface UserCrudRepo extends CrudRepository<User, UUID> {
 
-	@EntityGraph(attributePaths = {"roles"})
+	@EntityGraph(attributePaths = {"type", "refId", "status", "roles"})
 	public Page<User> findAll(Pageable pageable);
 
-	@EntityGraph(attributePaths = {"roles"})
+	@EntityGraph(attributePaths = {"type", "refId", "status", "roles"})
 	public Page<User> findAll(Example<User> example, Pageable pageable);
 }

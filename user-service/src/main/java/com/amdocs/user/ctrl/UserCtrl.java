@@ -28,8 +28,8 @@ import com.amdocs.user.dto.ReqisterReq;
 import com.amdocs.user.dto.UserFilter;
 import com.amdocs.user.dto.UserSearchReq;
 import com.amdocs.user.entity.Role;
+import com.amdocs.user.entity.Type;
 import com.amdocs.user.entity.User;
-import com.amdocs.user.entity.User.Status;
 import com.amdocs.user.repo.UserService;
 
 @RequestMapping("/api/user")
@@ -71,7 +71,7 @@ class UserCtrl {
 			}
 			User user = new User();
 			Role role = new Role();
-			role.setId(roleId);
+			role.setId(UUID.fromString(roleId));
 			List<Role> roles = new ArrayList<>();
 			roles.add(role);
 			user.setRoles(roles);
@@ -93,7 +93,7 @@ class UserCtrl {
 
 	@GetMapping(value = "/user-id/{userId}")
 	public ResponseEntity<?> userId(@PathVariable String userId) throws Throwable {
-		Optional<User> user = userSvc.byId(UUID.fromString(userId));
+		Optional<User> user = userSvc.userById(UUID.fromString(userId));
 		if (!user.isPresent()) {
 			return ResponseEntity.ok(new ErrorResponse(404, "User Not Found"));
 		}
@@ -111,37 +111,37 @@ class UserCtrl {
 
 	@PostMapping(value = "/register")
 	public ResponseEntity<?> registerUser(@RequestBody ReqisterReq reqisterReq) throws Throwable {
-		try {
-			User user = reqisterReq.user();
-			MessageDigest digest = null;
-			switch (user.getType()) {
-				case Application :
-					digest = MessageDigest.getInstance("MD5");
-					break;
-				default :
-					digest = MessageDigest.getInstance("SHA-256");
-					break;
 
-			}
-			user.setStatus(Status.NewReg);
-			UUID userId = UUID.nameUUIDFromBytes(digest.digest(UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8)));
-			user.setId(userId);
-			User registeredUser = userSvc.saveUpdate(user, true);
-			return ResponseEntity.ok(userSvc.byId(registeredUser.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.ok("User Already Registered");
+		User user = reqisterReq.user();
+		MessageDigest digest = null;
+		Optional<Type> type = userSvc.typeById(reqisterReq.getType().getId());
+		if (type.isEmpty()) {
+			throw new RuntimeException("Incorrect Account Type Provided");
 		}
+		user.setType(type.get());
+		switch (type.get().getName()) {
+			case "Assets" :
+				digest = MessageDigest.getInstance("MD5");
+				break;
+			default :
+				digest = MessageDigest.getInstance("SHA-256");
+				break;
+
+		}
+		UUID userId = UUID.nameUUIDFromBytes(digest.digest(UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8)));
+		user.setId(userId);
+		User registeredUser = userSvc.saveUpdate(user, true);
+		return ResponseEntity.ok(userSvc.userById(registeredUser.getId()));
 	}
 
 	@PutMapping(value = "/update-profile")
 	public ResponseEntity<?> updateProfile(@Valid @RequestBody ReqisterReq user) throws Throwable {
 		try {
-			Optional<User> userObj = userSvc.byId(user.getId());
+			Optional<User> userObj = userSvc.userById(user.getId());
 			if (userObj.isPresent())
-				return ResponseEntity.ok(userSvc.byId(userSvc.saveUpdate(user.entity(userObj.get()), false).getId()));
+				return ResponseEntity.ok(userSvc.userById(userSvc.saveUpdate(user.entity(userObj.get()), false).getId()));
 			else
-				return ResponseEntity.ok(userSvc.byId(userSvc.saveUpdate(user.entity(userObj.get()), false).getId()));
+				return ResponseEntity.ok(userSvc.userById(userSvc.saveUpdate(user.entity(userObj.get()), false).getId()));
 		} catch (Exception e) {
 			return ResponseEntity.ok(new ErrorResponse(500, "Internal Server Error"));
 		}

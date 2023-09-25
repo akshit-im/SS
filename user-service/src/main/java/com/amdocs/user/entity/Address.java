@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import com.amdocs.entity.AppEntity;
 import com.amdocs.geo.entity.City;
 import com.amdocs.geo.entity.Country;
 import com.amdocs.geo.entity.State;
@@ -30,7 +31,7 @@ import lombok.ToString.Exclude;
 @Data
 @Entity
 @Table(name = "USER_ADDRESS")
-public class Address implements Serializable {
+public class Address implements Serializable, AppEntity {
 
 	public Address() {
 		super();

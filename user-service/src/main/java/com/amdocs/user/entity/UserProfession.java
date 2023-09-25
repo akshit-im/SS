@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import com.amdocs.entity.AppEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "USER_PROFESSION")
-public class UserProfession implements Serializable {
+public class UserProfession implements Serializable, AppEntity {
 
 	private static final long serialVersionUID = 1L;
 

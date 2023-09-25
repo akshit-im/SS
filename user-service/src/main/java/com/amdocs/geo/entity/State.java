@@ -2,7 +2,6 @@ package com.amdocs.geo.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
@@ -29,11 +28,18 @@ public class State implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public State() {
+		super();
+	}
+
+	public State(String id) {
+		super();
+		this.id = id;
+	}
+
 	@Id
-	@UuidGenerator
-	@GeneratedValue
-	@Column(name = "ID", nullable = false, updatable = false, unique = true)
-	private UUID id;
+	@Column(name = "ID", nullable = false, unique = true)
+	private String id;
 
 	@Exclude
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Country.class)
@@ -52,8 +58,17 @@ public class State implements Serializable {
 	@Column(name = "NUM_CODE")
 	private Integer numCode;
 
+	@Column(name = "TYPE")
+	private String type;
+
 	@Column(name = "TXT_CODE")
 	private String txtCode;
+
+	@Column(name = "LONGITUDE")
+	private String longitude;
+
+	@Column(name = "LATITUDE")
+	private String latitude;
 
 	@JsonIgnore
 	@Exclude

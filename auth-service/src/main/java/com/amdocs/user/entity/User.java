@@ -7,14 +7,15 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.amdocs.entity.AppEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -31,10 +32,15 @@ import lombok.EqualsAndHashCode.Exclude;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USER")
-public class User implements Serializable {
+public class User implements Serializable, AppEntity {
 
 	public User() {
 		super();
+	}
+
+	public User(String id) {
+		super();
+		this.id = UUID.fromString(id);
 	}
 
 	public User(UUID id) {
@@ -42,21 +48,14 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public enum Status {
-		NewReg, Active, Deactive, Locked
-	}
-
-	public enum Type {
-		Individual, Team, Organization, Application
-	}
-
 	private static final long serialVersionUID = 3296734510645075591L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "ID", nullable = false, unique = true, updatable = false)
 	private UUID id;
 
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = Role.class)
+	@ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER, targetEntity = Role.class)
 	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
 	private List<Role> roles;
 
@@ -84,20 +83,21 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date entryDate;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "STATUS", nullable = false, columnDefinition = "varchar(10)")
-	private Status status = Status.NewReg;
+	// @Enumerated(EnumType.STRING)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = Status.class)
+	@JoinColumn(name = "STATUS", nullable = false)
+	private Status status;
 
 	@Column(name = "ACCOUNT_LOCKED", nullable = false, columnDefinition = "tinyint(1) default 1")
 	private Boolean accountLocked;
 
 	@Exclude
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = User.class)
-	@JoinColumn(name = "MANAGER_ID")
-	private User managerId;
+	@JoinColumn(name = "REF_ID")
+	private User refId;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE", nullable = false, columnDefinition = "varchar(20) default 'Individual'")
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = Type.class)
+	@JoinColumn(name = "TYPE_ID", nullable = false)
 	private Type type;
 
 }

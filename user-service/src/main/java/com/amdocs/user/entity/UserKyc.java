@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import com.amdocs.entity.AppEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +27,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "USER_KYC", uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "DOC_NAME"})})
-public class UserKyc implements Serializable {
+public class UserKyc implements Serializable, AppEntity {
 
 	public UserKyc() {
 		super();

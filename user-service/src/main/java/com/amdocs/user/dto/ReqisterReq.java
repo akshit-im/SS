@@ -11,8 +11,9 @@ import org.springframework.beans.BeanUtils;
 
 import com.amdocs.geo.entity.Country;
 import com.amdocs.user.entity.Role;
+import com.amdocs.user.entity.Status;
+import com.amdocs.user.entity.Type;
 import com.amdocs.user.entity.User;
-import com.amdocs.user.entity.User.Type;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +28,11 @@ public class ReqisterReq extends TokenReq implements Serializable {
 
 	private List<Role> roles;
 
-	private Type type = Type.Individual;
+	@NotBlank
+	private Type type;
+
+	@NotBlank
+	private Status status;
 
 	@NotBlank
 	private Country country;

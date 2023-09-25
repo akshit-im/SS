@@ -49,7 +49,7 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return user.getAccountLocked();
+		return !user.getAccountLocked();
 	}
 
 	@Override
@@ -61,11 +61,11 @@ public class UserPrincipal implements UserDetails {
 	public boolean isEnabled() {
 		boolean rtn = false;
 		try {
-			switch (user.getStatus()) {
-				case Active :
+			switch (user.getStatus().getName()) {
+				case "Active" :
 					rtn = true;
 					break;
-				case Deactive :
+				case "Deactive" :
 					break;
 				default :
 					break;

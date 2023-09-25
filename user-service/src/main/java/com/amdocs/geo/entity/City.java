@@ -1,7 +1,6 @@
 package com.amdocs.geo.entity;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
@@ -28,7 +27,7 @@ public class City implements Serializable {
 	@UuidGenerator
 	@GeneratedValue
 	@Column(name = "ID", nullable = false, updatable = false, unique = true)
-	private UUID id;
+	private String id;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = State.class)
 	@JoinColumn(name = "STATE_ID", nullable = false)
@@ -42,6 +41,12 @@ public class City implements Serializable {
 
 	@Column(name = "STD")
 	private String STD;
+
+	@Column(name = "LONGITUDE")
+	private String longitude;
+
+	@Column(name = "LATITUDE")
+	private String latitude;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;

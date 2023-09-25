@@ -15,6 +15,8 @@ import com.amdocs.user.dto.ReqisterReq;
 import com.amdocs.user.dto.UserSearchReq;
 import com.amdocs.user.entity.Address;
 import com.amdocs.user.entity.Role;
+import com.amdocs.user.entity.Status;
+import com.amdocs.user.entity.Type;
 import com.amdocs.user.entity.User;
 import com.amdocs.user.entity.UserKyc;
 import com.amdocs.user.entity.UserProfession;
@@ -53,6 +55,45 @@ class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private TypeRepo typeRepo;
+	
+	@Autowired
+	private TypeCrudRepo typeCrudRepo;
+
+	@Autowired
+	private StatusRepo statusRepo;
+
+	@Override
+	public Role saveUpdate(Role entity) throws Throwable {
+		return roleRepo.saveAndFlush(entity);
+	}
+
+	@Override
+	public List<Role> roleSaveUpdate(Iterable<Role> entity) throws Throwable {
+		return roleRepo.saveAllAndFlush(entity);
+	}
+
+	@Override
+	public Status saveUpdate(Status entity) throws Throwable {
+		return statusRepo.saveAndFlush(entity);
+	}
+
+	@Override
+	public List<Status> statusSaveUpdate(Iterable<Status> entity) throws Throwable {
+		return statusRepo.saveAllAndFlush(entity);
+	}
+
+	@Override
+	public Type saveUpdate(Type entity) throws Throwable {
+		return typeRepo.saveAndFlush(entity);
+	}
+
+	@Override
+	public List<Type> typeSaveUpdate(Iterable<Type> entity) throws Throwable {
+		return typeRepo.saveAllAndFlush(entity);
+	}
+
 	@Override
 	public User saveUpdate(User user, Boolean encrypt) throws Throwable {
 		if (encrypt) {
@@ -62,35 +103,65 @@ class UserServiceImpl implements UserService {
 		return userRepo.saveAndFlush(user);
 	}
 
-	public User saveUpdate(ReqisterReq user) throws Throwable {
-		User userEntity = user.user();
-		userEntity.setPassword(passEncode.encode(user.getPassword()));
+	@Override
+	public User saveUpdate(ReqisterReq entity) throws Throwable {
+		User userEntity = entity.user();
+		userEntity.setPassword(passEncode.encode(entity.getPassword()));
 		return userRepo.saveAndFlush(userEntity);
 	}
 
 	@Override
-	public UserKyc saveUpdate(UserKyc userKyc) throws Throwable {
-		return usrKycRepo.saveAndFlush(userKyc);
+	public UserKyc saveUpdate(UserKyc entity) throws Throwable {
+		return usrKycRepo.saveAndFlush(entity);
 	}
 
 	@Override
-	public Address saveUpdate(Address address) throws Throwable {
-		return addrsRepo.saveAndFlush(address);
+	public Address saveUpdate(Address entity) throws Throwable {
+		return addrsRepo.saveAndFlush(entity);
 	}
 
 	@Override
-	public UserProfession saveUpdate(UserProfession profession) throws Throwable {
-		return profRepo.saveAndFlush(profession);
+	public UserProfession saveUpdate(UserProfession entity) throws Throwable {
+		return profRepo.saveAndFlush(entity);
 	}
 
 	@Override
-	public UserWorkExpc saveUpdate(UserWorkExpc workExpc) throws Throwable {
-		return workExpcRepo.saveAndFlush(workExpc);
+	public UserWorkExpc saveUpdate(UserWorkExpc entity) throws Throwable {
+		return workExpcRepo.saveAndFlush(entity);
 	}
 
 	@Override
-	public Optional<User> byId(UUID userId) throws Throwable {
-		System.out.println("#" + userId);
+	public Optional<Status> statusById(String id) throws Throwable {
+		return statusRepo.findById(id);
+	}
+
+	@Override
+	public List<Status> status() throws Throwable {
+		return statusRepo.findAll();
+	}
+
+	@Override
+	public Optional<Type> typeById(UUID id) throws Throwable {
+		return typeRepo.findById(id);
+	}
+
+	@Override
+	public Optional<Type> typeByName(String id) throws Throwable {
+		return typeRepo.findOne(Example.of(new Type("WEB")));
+	}
+
+	@Override
+	public List<Type> types() throws Throwable {
+		return typeRepo.findAll();
+	}
+
+	@Override
+	public List<Type> types(UUID id) throws Throwable {
+		return typeCrudRepo.findAll(Example.of(new Type(new Type(id))));
+	}
+
+	@Override
+	public Optional<User> userById(UUID userId) throws Throwable {
 		return userRepo.findById(userId);
 	}
 

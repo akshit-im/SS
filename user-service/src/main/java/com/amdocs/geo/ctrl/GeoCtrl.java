@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amdocs.geo.dto.CityView;
-import com.amdocs.geo.dto.StateView;
+import com.amdocs.geo.entity.Country;
+import com.amdocs.geo.entity.State;
 import com.amdocs.geo.repo.GeoService;
 
 @RestController
@@ -25,12 +25,12 @@ class GeoCtrl {
 	}
 
 	@PostMapping(value = "/state")
-	public ResponseEntity<?> state(@RequestBody StateView stateView) throws Throwable {
-		return ResponseEntity.ok(geoSvc.state(stateView));
+	public ResponseEntity<?> state(@RequestBody Country country) throws Throwable {
+		return ResponseEntity.ok(geoSvc.state(country));
 	}
 
 	@PostMapping(value = "/city")
-	public ResponseEntity<?> city(@RequestBody CityView cityView) throws Throwable {
-		return ResponseEntity.ok(geoSvc.city(cityView));
+	public ResponseEntity<?> city(@RequestBody State state) throws Throwable {
+		return ResponseEntity.ok(geoSvc.city(state));
 	}
 }
