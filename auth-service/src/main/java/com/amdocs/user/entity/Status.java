@@ -3,7 +3,6 @@ package com.amdocs.user.entity;
 import java.io.Serializable;
 
 import com.amdocs.entity.AppEntity;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +13,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "APP_STATUS", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME", "REF_TABLE"})})
 public class Status implements Serializable, AppEntity {
 

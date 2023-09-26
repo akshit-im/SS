@@ -60,23 +60,23 @@ public class User implements Serializable, AppEntity {
 	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
 	private List<Role> roles;
 
-	@Column(name = "CODE", unique = true, nullable = false, updatable = false)
+	@Column(name = "CODE", unique = true, nullable = false, updatable = false, columnDefinition = "VARCHAR(20)")
 	private String code;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "NAME", nullable = false, columnDefinition = "VARCHAR(100)")
 	private String name;
 
 	@Column(name = "MOBILE", unique = true, nullable = false)
 	private Long mobile;
 
-	@Column(name = "EMAIL", unique = true)
+	@Column(name = "EMAIL", unique = true, columnDefinition = "VARCHAR(50)")
 	private String email;
 
-	@Column(name = "LOGIN_ID", unique = true, nullable = false)
+	@Column(name = "LOGIN_ID", unique = true, nullable = false, columnDefinition = "VARCHAR(50)")
 	private String loginId;
 
 	@JsonIgnore
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "PASSWORD", nullable = false, columnDefinition = "VARCHAR(50)")
 	private String password;
 
 	@Column(name = "WEBSITE")
@@ -104,7 +104,7 @@ public class User implements Serializable, AppEntity {
 	@JoinColumn(name = "TYPE_ID", nullable = false)
 	private Type type;
 
-	@Column(name = "ORG_TYPE")
+	@Column(name = "ORG_TYPE", columnDefinition = "VARCHAR(50)")
 	private String orgType;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = City.class)
