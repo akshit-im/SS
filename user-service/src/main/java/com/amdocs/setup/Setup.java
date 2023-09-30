@@ -100,8 +100,8 @@ class Setup {
 				user.setEmail("exp360ui@gmail.com");
 				user.setLoginId("a9e463de1328718f96004ab222e4ed24");
 				user.setPassword("Singh!@#app");
-				user.setType(userSvc.typeByName("WEB").get());
-				user.setStatus(new Status("Active", "USER"));
+				user.setType(userSvc.type("WEB").get());
+				user.setStatus(userSvc.status("Active", "USER"));
 				user.setAccountLocked(false);
 				userSvc.saveUpdate(user, true);
 			}

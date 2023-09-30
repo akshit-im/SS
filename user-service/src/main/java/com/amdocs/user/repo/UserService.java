@@ -1,12 +1,16 @@
 package com.amdocs.user.repo;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.amdocs.user.dto.ReqisterReq;
 import com.amdocs.user.dto.UserSearchReq;
@@ -20,6 +24,17 @@ import com.amdocs.user.entity.UserProfession;
 import com.amdocs.user.entity.UserWorkExpc;
 
 public interface UserService {
+
+	default void butifyReg(User user, Optional<Type> type) {
+		if (user.getCode() == null || user.getCode().equals("NA"))
+			user.setCode(RandomStringUtils.randomAlphanumeric(20));
+		if (user.getLoginId() == null || user.getLoginId().equals("NA")) {
+			user.setLoginId(RandomStringUtils.randomAlphanumeric(20));
+			user.setPassword(RandomStringUtils.randomAlphanumeric(20));
+		}
+		if (user.getStatus() == null)
+			user.setStatus(new Status("Active"));
+	}
 
 	public Role saveUpdate(Role entity) throws Throwable;
 
@@ -45,17 +60,21 @@ public interface UserService {
 
 	public UserWorkExpc saveUpdate(UserWorkExpc entity) throws Throwable;
 
-	public Optional<Status> statusById(String id) throws Throwable;
+	public Status status(String name, String refTable) throws Throwable;
+
+	public Optional<Status> status(UUID id) throws Throwable;
 
 	public List<Status> status() throws Throwable;
 
-	public Optional<Type> typeById(UUID id) throws Throwable;
+	public List<Status> status(Example<Status> status, Sort sort) throws Throwable;
 
-	public Optional<Type> typeByName(String id) throws Throwable;
+	public Optional<Type> type(UUID id) throws Throwable;
+
+	public Optional<Type> type(String name) throws Throwable;
 
 	public List<Type> types() throws Throwable;
-	
-	public List<Type> types(UUID id) throws Throwable;
+
+	public List<Type> types(Example<Type> type, Sort sort) throws Throwable;
 
 	public Optional<User> userById(UUID id) throws Throwable;
 

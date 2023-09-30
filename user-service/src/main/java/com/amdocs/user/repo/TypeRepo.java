@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
@@ -19,5 +20,5 @@ interface TypeRepo extends JpaRepository<Type, UUID> {
 interface TypeCrudRepo extends CrudRepository<Type, UUID> {
 
 	@EntityGraph(attributePaths = {"reference"})
-	public List<Type> findAll(Example<Type> example);
+	public List<Type> findAll(Example<Type> type, Sort sort);
 }

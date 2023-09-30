@@ -1,11 +1,8 @@
 package com.amdocs.user.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import com.amdocs.entity.AppEntity;
 import com.amdocs.geo.entity.City;
@@ -23,8 +20,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Exclude;
@@ -33,7 +28,7 @@ import lombok.EqualsAndHashCode.Exclude;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USER")
-public class User implements Serializable, AppEntity {
+public class User extends AppEntity implements Serializable {
 
 	public User() {
 		super();
@@ -76,16 +71,11 @@ public class User implements Serializable, AppEntity {
 	private String loginId;
 
 	@JsonIgnore
-	@Column(name = "PASSWORD", nullable = false, columnDefinition = "VARCHAR(50)")
+	@Column(name = "PASSWORD", nullable = false, columnDefinition = "VARCHAR(100)")
 	private String password;
 
 	@Column(name = "WEBSITE")
 	private String website;
-
-	@CreationTimestamp
-	@Column(name = "ENTRY_DATE", updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date entryDate;
 
 	// @Enumerated(EnumType.STRING)
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = Status.class)
@@ -104,8 +94,8 @@ public class User implements Serializable, AppEntity {
 	@JoinColumn(name = "TYPE_ID", nullable = false)
 	private Type type;
 
-	@Column(name = "ORG_TYPE", columnDefinition = "VARCHAR(50)")
-	private String orgType;
+	@Column(name = "MCA_TYPE", columnDefinition = "VARCHAR(50)")
+	private String mcaType;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = City.class)
 	@JoinColumn(name = "CITY_ID")

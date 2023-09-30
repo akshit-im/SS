@@ -18,12 +18,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString.Exclude;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "GEO_STATE", uniqueConstraints = {@UniqueConstraint(columnNames = {"COUNTRY_ID", "NAME"})})
-public class State implements Serializable, AppEntity {
+public class State extends AppEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +36,16 @@ public class State implements Serializable, AppEntity {
 	public State(UUID id) {
 		super();
 		this.id = id;
+	}
+
+	public State(String name) {
+		super();
+		this.name = name;
+	}
+
+	public State(Country country) {
+		super();
+		this.country = country;
 	}
 
 	@Id

@@ -45,7 +45,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-		if (request.getMethod().equals(HttpMethod.OPTIONS)) {
+		if (request.getMethod().equals(HttpMethod.OPTIONS) || request.getRequestURL().toString().contains("/images/")) {
 
 		} else if (request.getHeader(HttpHeaders.AUTHORIZATION).startsWith(AppConstant.AUTH_TYPE_BEARER) && !request.getServletPath().contains("loadUserByUsername")) {
 			String jwt = parseJwt(request);

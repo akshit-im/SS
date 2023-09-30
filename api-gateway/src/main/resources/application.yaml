@@ -36,7 +36,7 @@ spring:
         #uri: http://localhost:9092
         uri: lb://USER-SERVICE
         predicates:
-          - Path=/api/user/**, /api/roles/**, /api/types/**, /api/geo/**
+          - Path=/api/user/**, /api/roles/**, /api/types/**, /api/geo/**, /api/status/**
         filters:          
           - AuthGatewayFilter
       - id: auth-service

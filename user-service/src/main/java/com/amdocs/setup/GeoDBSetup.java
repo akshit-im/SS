@@ -18,8 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import com.amdocs.geo.entity.City;
 import com.amdocs.geo.entity.Country;
@@ -35,9 +35,6 @@ public class GeoDBSetup {
 	@Autowired
 	private GeoService geoSvc;
 
-	@Autowired
-	private ApplicationContext ctx;
-
 	@PostConstruct
 	public void init() {
 
@@ -45,7 +42,7 @@ public class GeoDBSetup {
 			if (geoSvc.country().size() < 1) {
 				File countryFile = null;
 				try {
-					countryFile = ctx.getResource("classpath:geo/countries.csv").getFile();
+					countryFile = ResourceUtils.getFile("classpath:geo/countries.csv");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -120,7 +117,7 @@ public class GeoDBSetup {
 
 				File stateFile = null;
 				try {
-					stateFile = ctx.getResource("classpath:geo/states.csv").getFile();
+					stateFile = ResourceUtils.getFile("classpath:geo/states.csv");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -164,7 +161,7 @@ public class GeoDBSetup {
 
 				File cityFile = null;
 				try {
-					cityFile = ctx.getResource("classpath:geo/cities.csv").getFile();
+					cityFile = ResourceUtils.getFile("classpath:geo/cities.csv");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}

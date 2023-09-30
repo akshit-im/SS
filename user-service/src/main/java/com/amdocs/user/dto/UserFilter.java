@@ -1,7 +1,8 @@
 package com.amdocs.user.dto;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Transient;
 import lombok.Data;
@@ -35,96 +36,95 @@ public class UserFilter implements Cloneable, Serializable {
 	}
 
 	@Transient
-	private final LinkedHashMap<String, String> genderList = new LinkedHashMap<String, String>() {
+	private final Set<String> genderList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Male", "Male");
-			put("Female", "Female");
-			put("Other", "Other");
+			add("Male");
+			add("Female");
+			add("Other");
 		}
 	};
 
 	@Transient
-	private final LinkedHashMap<String, String> religionList = new LinkedHashMap<String, String>() {
+	private final Set<String> religionList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Christianity", "Christianity");
-			put("Islam", "Islam");
-			put("Hinduism", "Hinduism");
-			put("Buddhism", "Buddhism");
-			put("Sikhism", "Sikhism");
-			put("Judaism", "Judaism");
-			put("Folk religions", "Folk religions");
+			add("Christianity");
+			add("Islam");
+			add("Hinduism");
+			add("Buddhism");
+			add("Sikhism");
+			add("Judaism");
+			add("Folk religions");
 		}
 	};
 
 	@Transient
-	private final LinkedHashMap<String, String> casteList = new LinkedHashMap<String, String>() {
+	private final Set<String> casteList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Gen", "General");
-			put("SC", "Scheduled Castes");
-			put("ST", "Scheduled Tribes");
-			put("OBC", "OBC");
+			add("General");
+			add("Scheduled Castes");
+			add("Scheduled Tribes");
+			add("OBC");
 		}
 	};
 
 	@Transient
-	private final LinkedHashMap<String, String> maritalList = new LinkedHashMap<String, String>() {
+	private final Set<String> maritalList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Unmarried", "Unmarried");
-			put("Married", "Married");
-			put("Separated", "Separated");
-			put("Divorced", "Divorced");
-			put("Widowed", "Widowed");
+			add("Unmarried");
+			add("Married");
+			add("Separated");
+			add("Divorced");
+			add("Widowed");
 		}
 	};
 
 	@Transient
-	private final LinkedHashMap<String, String> orgTypeList = new LinkedHashMap<String, String>() {
+	private final Set<String> mcaTypeList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Public Limited Company", "Public Limited Company");
-			put("Private Limited Company", "Private Limited Company");
-			put("Partnership Company)", "Partnership Company)");
-			put("Proprietorship Company", "Proprietorship Company");
-			put("Govt. Sector Company", "Govt. Sector Company");
-			put("Others", "Others");
+			add("Public Limited Company");
+			add("Private Limited Company");
+			add("Partnership Company");
+			add("Proprietorship Company");
+			add("Govt. Sector Company");
+			add("Others");
 		}
 	};
 
 	@Transient
-	private LinkedHashMap<String, String> degreeTypeList = new LinkedHashMap<String, String>() {
+	private Set<String> degreeTypeList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Matric", "Matric");
-			put("Intermediate", "Intermediate");
-			put("Bachelor Degree", "Bachelor Degree");
-			put("Master degree", "Master degree");
-			put("Doctoral degree", "Doctoral degree");
-			put("Post Doctoral", "Post Doctoral");
-			put("Higher Studies", "Higher Studies");
+			add("Matric");
+			add("Intermediate");
+			add("Bachelor Degree");
+			add("Master degree");
+			add("Doctoral degree");
+			add("Post Doctoral");
+			add("Higher Studies");
 		}
 	};
 
 	@Transient
-	private final LinkedHashMap<String, String> userDocsList = new LinkedHashMap<String, String>() {
+	private final Set<String> userDocsList = new HashSet<String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("Profile Picture", "Profile Picture");
-			put("Pan Card", "Pan Card");
-			put("Aadhar Card", "Aadhar Card");
-			put("Voter ID Card", "Voter ID Card");
-			put("Passport", "Passport");
-			put("Driving Licence", "Driving Licence");
-			put("Domicile Certificate", "Domicile Certificate");
-			put("Income Certificate", "Income Certificate");
-			put("Visiting Card", "Visiting Card");
-			put("Bank Account", "Bank Account");
-			put("GSTIN Number", "GSTIN Number");
-			put("Others", "Others");
+			add("Profile Picture");
+			add("Pan Card");
+			add("Aadhar Card");
+			add("Voter ID Card");
+			add("Passport");
+			add("Driving Licence");
+			add("Domicile Certificate");
+			add("Income Certificate");
+			add("Visiting Card");
+			add("Bank Account");
+			add("GSTIN Number");
+			add("Others");
 		}
 	};
-
 }

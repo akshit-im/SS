@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,7 @@ class UserServiceImpl implements UserService {
 
 	@Autowired
 	private TypeRepo typeRepo;
-	
+
 	@Autowired
 	private TypeCrudRepo typeCrudRepo;
 
@@ -131,7 +132,12 @@ class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<Status> statusById(String id) throws Throwable {
+	public Status status(String name, String refTable) throws Throwable {
+		return statusRepo.findByNameAndRefTable(name, refTable);
+	}
+
+	@Override
+	public Optional<Status> status(UUID id) throws Throwable {
 		return statusRepo.findById(id);
 	}
 
@@ -141,13 +147,18 @@ class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<Type> typeById(UUID id) throws Throwable {
+	public List<Status> status(Example<Status> status, Sort sort) throws Throwable {
+		return statusRepo.findAll(status, sort);
+	}
+
+	@Override
+	public Optional<Type> type(UUID id) throws Throwable {
 		return typeRepo.findById(id);
 	}
 
 	@Override
-	public Optional<Type> typeByName(String id) throws Throwable {
-		return typeRepo.findOne(Example.of(new Type("WEB")));
+	public Optional<Type> type(String name) throws Throwable {
+		return typeRepo.findOne(Example.of(new Type(name)));
 	}
 
 	@Override
@@ -156,8 +167,8 @@ class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Type> types(UUID id) throws Throwable {
-		return typeCrudRepo.findAll(Example.of(new Type(new Type(id))));
+	public List<Type> types(Example<Type> type, Sort sort) throws Throwable {
+		return typeCrudRepo.findAll(type, sort);
 	}
 
 	@Override

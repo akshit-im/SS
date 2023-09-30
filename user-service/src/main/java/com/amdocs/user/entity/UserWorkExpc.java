@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import com.amdocs.entity.AppEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,11 +23,13 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USER_WORK_EXPERIENCE", uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "PROFESSION_ID", "ORG_NAME", "FRM_DT"})})
-public class UserWorkExpc implements Serializable {
+public class UserWorkExpc extends AppEntity implements Serializable {
 
 	private static final long serialVersionUID = 3296734510645075591L;
 

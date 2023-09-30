@@ -23,11 +23,13 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USER_KYC", uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_ID", "DOC_NAME"})})
-public class UserKyc implements Serializable, AppEntity {
+public class UserKyc  extends AppEntity implements Serializable {
 
 	public UserKyc() {
 		super();

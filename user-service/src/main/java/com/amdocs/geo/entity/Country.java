@@ -19,12 +19,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString.Exclude;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "GEO_COUNTRY")
-public class Country implements Serializable, AppEntity {
+public class Country extends AppEntity implements Serializable, Comparable<Country> {
 
 	public Country() {
 		super();
@@ -32,6 +34,10 @@ public class Country implements Serializable, AppEntity {
 
 	public Country(UUID id) {
 		this.id = id;
+	}
+
+	public Country(String name) {
+		this.name = name;
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -87,6 +93,11 @@ public class Country implements Serializable, AppEntity {
 
 	public String getIsdName() {
 		return phCode + " (" + name + ")";
+	}
+
+	@Override
+	public int compareTo(Country obj) {
+		return name.compareTo(obj.getName());
 	}
 
 }

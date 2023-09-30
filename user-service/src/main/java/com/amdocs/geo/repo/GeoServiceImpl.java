@@ -2,8 +2,11 @@ package com.amdocs.geo.repo;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.amdocs.geo.entity.City;
@@ -12,7 +15,6 @@ import com.amdocs.geo.entity.State;
 import com.amdocs.geo.entity.TimeZone;
 
 import jakarta.transaction.Transactional;
- 
 
 @Service
 @Transactional
@@ -22,7 +24,13 @@ class GeoServiceImpl implements GeoService {
 	private CityRepo cityRepo;
 
 	@Autowired
+	private CityCrudRepo cityCrudRepo;
+
+	@Autowired
 	private StateRepo stateRepo;
+
+	@Autowired
+	private StateCrudRepo stateCrudRepo;
 
 	@Autowired
 	private CountryRepo countryRepo;
@@ -66,28 +74,28 @@ class GeoServiceImpl implements GeoService {
 	}
 
 	@Override
-	public Country country(Long countryId) throws Throwable {
-		return countryRepo.getById(countryId);
+	public Optional<Country> country(UUID id) throws Throwable {
+		return countryRepo.findById(id);
 	}
 
 	@Override
-	public List<State> state(Country country) throws Throwable {
-		return stateRepo.findByCountry(country);
+	public List<State> state(Example<State> state, Sort sort) throws Throwable {
+		return stateCrudRepo.findAll(state, sort);
 	}
 
 	@Override
-	public State state(Long stateId) throws Throwable {
-		return stateRepo.findById(stateId).get();
+	public Optional<State> state(UUID id) throws Throwable {
+		return stateRepo.findById(id);
 	}
 
 	@Override
-	public List<City> city(State state) throws Throwable {
-		return cityRepo.findByState(state);
+	public List<City> city(Example<City> city, Sort sort) throws Throwable {
+		return cityCrudRepo.findAll(city, sort);
 	}
 
 	@Override
-	public City city(Long cityId) throws Throwable {
-		return cityRepo.findById(cityId).get();
+	public Optional<City> city(UUID id) throws Throwable {
+		return cityRepo.findById(id);
 	}
 
 }

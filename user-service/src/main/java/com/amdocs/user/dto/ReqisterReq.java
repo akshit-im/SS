@@ -31,6 +31,8 @@ public class ReqisterReq extends TokenReq implements Serializable {
 	@NotBlank
 	private Type type;
 
+	private String mcaType;
+
 	@NotBlank
 	private Status status;
 
@@ -61,6 +63,11 @@ public class ReqisterReq extends TokenReq implements Serializable {
 
 	public User entity(User obj) {
 		BeanUtils.copyProperties(this, obj);
+		return obj;
+	}
+
+	public User entity(User obj, String... ignoreProperties) {
+		BeanUtils.copyProperties(this, obj, ignoreProperties);
 		return obj;
 	}
 }

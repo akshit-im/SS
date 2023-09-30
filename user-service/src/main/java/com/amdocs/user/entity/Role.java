@@ -12,11 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "APP_ROLES")
-public class Role implements Serializable, AppEntity {
+public class Role  extends AppEntity implements Serializable {
 
 	public Role() {
 	}

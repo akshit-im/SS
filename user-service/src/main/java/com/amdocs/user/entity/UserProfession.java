@@ -18,11 +18,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USER_PROFESSION")
-public class UserProfession implements Serializable, AppEntity {
+public class UserProfession  extends AppEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

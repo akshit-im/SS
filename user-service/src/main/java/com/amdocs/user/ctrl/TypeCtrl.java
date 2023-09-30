@@ -3,14 +3,19 @@ package com.amdocs.user.ctrl;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amdocs.exception.ErrorResponse;
 import com.amdocs.user.entity.Type;
 import com.amdocs.user.repo.UserService;
 
@@ -26,14 +31,34 @@ class TypeCtrl {
 		return ResponseEntity.ok(userSvc.types());
 	}
 
-	@GetMapping(value = "/list/{id}")
-	public ResponseEntity<?> typeList(@PathVariable String id) throws Throwable {
-		return ResponseEntity.ok(userSvc.types(UUID.fromString(id)));
+	@GetMapping(value = "/list/{input}")
+	public ResponseEntity<?> typeList(@PathVariable String input, @RequestHeader(value = "filterBy") String filterBy) throws Throwable {
+		switch (filterBy.toUpperCase()) {
+			case "ID" : {
+				return ResponseEntity.ok(userSvc.types(Example.of(new Type(new Type(UUID.fromString(input)))), Sort.by("name")));
+			}
+			case "NAME" : {
+				return ResponseEntity.ok(userSvc.types(Example.of(new Type(new Type(input))), Sort.by("name")));
+			}
+			default : {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, "Header Param filterBy is Wrong"));
+			}
+		}
 	}
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> getType(@PathVariable String id) throws Throwable {
-		return ResponseEntity.ok(userSvc.typeById(UUID.fromString(id)));
+	@GetMapping(value = "/{input}")
+	public ResponseEntity<?> getById(@PathVariable String input, @RequestHeader(value = "filterBy") String filterBy) throws Throwable {
+		switch (filterBy.toUpperCase()) {
+			case "ID" : {
+				return ResponseEntity.ok(userSvc.type(UUID.fromString(input)));
+			}
+			case "NAME" : {
+				return ResponseEntity.ok(userSvc.type(input));
+			}
+			default : {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, "Header Param filterBy is Wrong"));
+			}
+		}
 	}
 
 	@PostMapping(value = "/add")

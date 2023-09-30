@@ -9,8 +9,6 @@ import org.hibernate.annotations.UuidGenerator;
 
 import com.amdocs.entity.AppEntity;
 import com.amdocs.geo.entity.City;
-import com.amdocs.geo.entity.Country;
-import com.amdocs.geo.entity.State;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,12 +24,14 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString.Exclude;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USER_ADDRESS")
-public class Address implements Serializable, AppEntity {
+public class Address extends AppEntity implements Serializable {
 
 	public Address() {
 		super();
@@ -71,19 +71,9 @@ public class Address implements Serializable, AppEntity {
 	private Date entryDate;
 
 	@Exclude
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = State.class)
-	@JoinColumn(name = "STATE_ID")
-	private State state;
-
-	@Exclude
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = City.class)
 	@JoinColumn(name = "CITY_ID")
 	private City city;
-
-	@Exclude
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Country.class)
-	@JoinColumn(name = "COUNTRY_ID")
-	private Country country;
 
 	@Column(name = "ADDRESS")
 	private String address;

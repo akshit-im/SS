@@ -17,11 +17,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "APP_TYPE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME", "REFERENCE"})})
-public class Type implements Serializable, AppEntity {
+public class Type  extends AppEntity implements Serializable {
 
 	public Type() {
 		super();

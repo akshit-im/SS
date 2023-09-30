@@ -2,11 +2,16 @@ package com.amdocs.geo.repo;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 
 import com.amdocs.geo.entity.City;
 import com.amdocs.geo.entity.Country;
 import com.amdocs.geo.entity.State;
 import com.amdocs.geo.entity.TimeZone;
+import com.amdocs.user.entity.Type;
 
 public interface GeoService {
 
@@ -24,14 +29,14 @@ public interface GeoService {
 
 	public List<Country> country() throws Throwable;
 
-	public Country country(Long countryId) throws Throwable;
+	public Optional<Country> country(UUID id) throws Throwable;
 
-	public List<State> state(Country country) throws Throwable;
+	public List<State> state(Example<State> state, Sort sort) throws Throwable;
 
-	public State state(Long stateId) throws Throwable;
+	public Optional<State> state(UUID id) throws Throwable;
 
-	public List<City> city(State state) throws Throwable;
+	public List<City> city(Example<City> city, Sort sort) throws Throwable;
 
-	public City city(Long cityId) throws Throwable;
+	public Optional<City> city(UUID id) throws Throwable;
 
 }

@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "GEO_TIME_ZONE")
-public class TimeZone implements Serializable, AppEntity {
+public class TimeZone extends AppEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

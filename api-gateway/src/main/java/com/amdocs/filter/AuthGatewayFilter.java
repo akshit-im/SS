@@ -23,17 +23,16 @@ public class AuthGatewayFilter extends AbstractGatewayFilterFactory<AuthGatewayF
 	public GatewayFilter apply(Config config) {
 		return (exchange, chain) -> {
 			System.out.println("AuthGatewayFilter " + new Date());
-			if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-				exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-				throw new RuntimeException("Missing Authorization information");
-			}
-
-			String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-
-			String[] parts = authHeader.split(" ");
-
-			if (parts.length != 2 || !"Bearer".equals(parts[0])) {
-				throw new RuntimeException("Incorrect authorization structure");
+			if (!exchange.getRequest().getURI().toString().contains("/images/")) {
+				if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+					exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+					throw new RuntimeException("Missing Authorization information");
+				}
+				String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+				String[] parts = authHeader.split(" ");
+				if (parts.length != 2 || !"Bearer".equals(parts[0])) {
+					throw new RuntimeException("Incorrect authorization structure");
+				}
 			}
 			return chain.filter(exchange);
 		};
