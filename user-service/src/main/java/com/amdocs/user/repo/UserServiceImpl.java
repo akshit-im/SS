@@ -167,6 +167,16 @@ class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<Type> typesByRef(String... name) throws Throwable {
+		return typeRepo.findByReferenceNameInOrderByName(name);
+	}
+
+	@Override
+	public List<Type> typesByRef(UUID... id) throws Throwable {
+		return typeRepo.findByReferenceIdInOrderByName(id);
+	}
+
+	@Override
 	public List<Type> types(Example<Type> type, Sort sort) throws Throwable {
 		return typeCrudRepo.findAll(type, sort);
 	}

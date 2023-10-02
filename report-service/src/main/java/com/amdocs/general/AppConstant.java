@@ -14,7 +14,7 @@ public final class AppConstant {
 	public final static String JWT_AUTHORITIES = "authorities";
 
 	public final static String[] CORS_ORIGINS_ARY = {"http://localhost:4200"};
-	public final static String[] CORS_METHODS_ARY = {"GET", "POST", "PUT", "DELETE", "OPTIONS"};
+	public final static String[] CORS_METHODS_ARY = {"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"};
 	public final static String[] CORS_HEADERS_ARY = {"*"};
 
 	public final static List<String> CORS_ORIGINS = Arrays.asList(CORS_ORIGINS_ARY);

@@ -33,12 +33,19 @@ class TypeCtrl {
 
 	@GetMapping(value = "/list/{input}")
 	public ResponseEntity<?> typeList(@PathVariable String input, @RequestHeader(value = "filterBy") String filterBy) throws Throwable {
+		String[] inputArr = null;
+		if (input.contains("_")) {
+			inputArr = input.split("_");
+		} else {
+			inputArr = new String[]{input};
+		}
+
 		switch (filterBy.toUpperCase()) {
 			case "ID" : {
-				return ResponseEntity.ok(userSvc.types(Example.of(new Type(new Type(UUID.fromString(input)))), Sort.by("name")));
+				return ResponseEntity.ok(userSvc.typesByRef(inputArr));
 			}
 			case "NAME" : {
-				return ResponseEntity.ok(userSvc.types(Example.of(new Type(new Type(input))), Sort.by("name")));
+				return ResponseEntity.ok(userSvc.typesByRef(inputArr));
 			}
 			default : {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, "Header Param filterBy is Wrong"));

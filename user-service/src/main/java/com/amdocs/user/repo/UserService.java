@@ -1,7 +1,5 @@
 package com.amdocs.user.repo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,6 +71,10 @@ public interface UserService {
 	public Optional<Type> type(String name) throws Throwable;
 
 	public List<Type> types() throws Throwable;
+
+	public List<Type> typesByRef(String... name) throws Throwable;
+
+	public List<Type> typesByRef(UUID... name) throws Throwable;
 
 	public List<Type> types(Example<Type> type, Sort sort) throws Throwable;
 

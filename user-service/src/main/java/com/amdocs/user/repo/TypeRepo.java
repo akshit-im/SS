@@ -15,6 +15,9 @@ import com.amdocs.user.entity.Type;
 @Repository
 interface TypeRepo extends JpaRepository<Type, UUID> {
 
+	public List<Type> findByReferenceNameInOrderByName(String[] name);
+
+	public List<Type> findByReferenceIdInOrderByName(UUID[] id);
 }
 
 interface TypeCrudRepo extends CrudRepository<Type, UUID> {
