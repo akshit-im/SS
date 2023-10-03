@@ -63,6 +63,12 @@ class UserCtrl {
 
 	@GetMapping(value = {"/list/{input}"})
 	public ResponseEntity<?> list(@PathVariable(value = "input", required = true) String input, @RequestHeader(value = "filterBy") String filterBy, @RequestHeader(value = "offset", required = false) Integer offset, @RequestHeader(value = "limit", required = false) Integer limit) throws Throwable {
+		String[] inputArr = null;
+		if (input.contains("_")) {
+			inputArr = input.split("_");
+		} else {
+			inputArr = new String[]{input};
+		}
 		try {
 			if (offset == null) {
 				offset = 0;
@@ -78,33 +84,32 @@ class UserCtrl {
 					List<Role> roles = new ArrayList<>();
 					roles.add(role);
 					user.setRoles(roles);
+					return null;
 				}
-					break;
 				case "TYPE_ID" : {
-					Type type = new Type(UUID.fromString(input));
-					user.setType(type);
+					UUID[] inputUddi = new UUID[inputArr.length];
+					for (int i = 0; i < inputArr.length; i++) {
+						inputUddi[i] = UUID.fromString(inputArr[i]);
+					}
+					return ResponseEntity.ok(userSvc.userByType(inputUddi));
 				}
-					break;
 				case "TYPE_NAME" : {
-					Type type = new Type(input);
-					user.setType(type);
+					return ResponseEntity.ok(userSvc.userByType(inputArr));
 				}
-					break;
 				case "REF_TYPE_ID" : {
-					Type type = new Type(new Type(UUID.fromString(input)));
-					user.setType(type);
+					UUID[] inputUddi = new UUID[inputArr.length];
+					for (int i = 0; i < inputArr.length; i++) {
+						inputUddi[i] = UUID.fromString(inputArr[i]);
+					}
+					return ResponseEntity.ok(userSvc.userByTypeRef(inputUddi));
 				}
-					break;
 				case "REF_TYPE_NAME" : {
-					Type type = new Type(new Type(input));
-					user.setType(type);
+					return ResponseEntity.ok(userSvc.userByTypeRef(inputArr));
 				}
-					break;
 				default : {
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, "Header Param filterBy is Wrong"));
 				}
 			}
-			return ResponseEntity.ok(userSvc.user(Example.of(user), PageRequest.of(offset, limit, Sort.by("entryDate").descending())));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(500, "Internal Server Error"));

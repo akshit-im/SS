@@ -86,6 +86,18 @@ public interface UserService {
 
 	public User byEmail(String email) throws Throwable;
 
+	public List<User> userByType(String... name) throws Throwable;
+
+	public List<User> userByType(UUID... id) throws Throwable;
+
+	public List<User> userByTypeRef(String... name) throws Throwable;
+
+	public List<User> userByTypeRef(UUID... id) throws Throwable;
+
+	public List<User> userByRole(String... name) throws Throwable;
+
+	public List<User> userByRole(UUID... id) throws Throwable;
+
 	public List<User> user(Example<User> user) throws Throwable;
 
 	public Page<User> user(Example<User> example, Pageable pageable) throws Throwable;

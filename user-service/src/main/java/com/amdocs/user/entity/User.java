@@ -88,7 +88,7 @@ public class User extends AppEntity implements Serializable {
 	@Exclude
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = User.class)
 	@JoinColumn(name = "REF_ID")
-	private User refId;
+	private User reference;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = Type.class)
 	@JoinColumn(name = "TYPE_ID", nullable = false)

@@ -29,7 +29,7 @@ class Setup {
 				roleList.add(new Role("Administrator", "Active"));
 				roleList.add(new Role("Director", "Active"));
 				roleList.add(new Role("Manager", "Active"));
-				roleList.add(new Role("Employee", "Active"));
+				roleList.add(new Role("Executive", "Active"));
 				roleList.add(new Role("Representative", "Active"));
 				roleList.add(new Role("Manufacturer", "Active"));
 				roleList.add(new Role("Distributer", "Active"));
@@ -78,8 +78,11 @@ class Setup {
 				typeList.add(new Type("Employee", special));
 				typeList.add(new Type("Contractor", special));
 				typeList.add(new Type("Administrator", special));
-				typeList.add(new Type("WEB", special));
-				typeList.add(new Type("API", special));
+
+				Type assets = new Type("Assets", "Active");
+				typeList.add(assets);
+				typeList.add(new Type("WEB", assets));
+				typeList.add(new Type("API", assets));
 
 				try {
 					userSvc.typeSaveUpdate(typeList);

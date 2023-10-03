@@ -202,6 +202,36 @@ class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> userByType(String... name) throws Throwable {
+		return userRepo.findByTypeNameInOrderByName(name);
+	}
+
+	@Override
+	public List<User> userByType(UUID... id) throws Throwable {
+		return userRepo.findByTypeIdInOrderByName(id);
+	}
+
+	@Override
+	public List<User> userByTypeRef(String... name) throws Throwable {
+		return userRepo.findByTypeReferenceNameInOrderByName(name);
+	}
+
+	@Override
+	public List<User> userByTypeRef(UUID... id) throws Throwable {
+		return userRepo.findByTypeReferenceIdInOrderByName(id);
+	}
+
+	@Override
+	public List<User> userByRole(String... name) throws Throwable {
+		return userRepo.findByRolesNameIn(name);
+	}
+
+	@Override
+	public List<User> userByRole(UUID... id) throws Throwable {
+		return userRepo.findByRolesIdIn(id);
+	}
+
+	@Override
 	public List<User> user(Example<User> user) throws Throwable {
 		return userRepo.findAll(user);
 	}
