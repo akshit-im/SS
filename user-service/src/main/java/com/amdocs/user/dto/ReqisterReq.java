@@ -33,6 +33,8 @@ public class ReqisterReq extends TokenReq implements Serializable {
 
 	private String mcaType;
 
+	private User reference;
+	
 	@NotBlank
 	private Status status;
 

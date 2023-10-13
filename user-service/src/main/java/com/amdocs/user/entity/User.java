@@ -85,8 +85,7 @@ public class User extends AppEntity implements Serializable {
 	@Column(name = "ACCOUNT_LOCKED", nullable = false, columnDefinition = "tinyint(1) default 1")
 	private Boolean accountLocked;
 
-	@Exclude
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = User.class)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, targetEntity = User.class)
 	@JoinColumn(name = "REF_ID")
 	private User reference;
 
