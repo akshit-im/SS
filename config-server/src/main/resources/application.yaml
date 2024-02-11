@@ -1,3 +1,5 @@
+server:
+  port: 80
 spring:
   application:
     name: config-server
@@ -8,5 +10,13 @@ spring:
           uri: https://gitlab.com/JMaverick/config-server
           username: sudeepsingh.np@gmail.coom
           password: glpat-MfLRbdQnLKiYAZhHQ4UW
-server:
-  port: 9196 
+  zipkin:
+    baseUrl: http://zipkin.test.com:9411/api/v2/spans
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery.test.com/eureka
+management:
+  zipkin:
+    tracing:
+      endpoint: ${spring.zipkin.baseUrl}

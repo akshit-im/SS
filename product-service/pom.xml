@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.amdocs</groupId>
-    <artifactId>project</artifactId>
+    <artifactId>maverick</artifactId>
     <version>1.0.0</version>
   </parent>
   <artifactId>product-service</artifactId>

@@ -3,7 +3,8 @@ package com.amdocs.user.entity;
 import java.io.Serializable;
 import java.util.UUID;
 
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import com.amdocs.entity.AppEntity;
 
@@ -40,9 +41,9 @@ public class Status extends AppEntity implements Serializable {
 	}
 
 	@Id
-	@UuidGenerator
-	@GeneratedValue
-	@Column(name = "ID", nullable = false, unique = true)
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "UUID", parameters = {@Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+	@Column(name = "ID", nullable = false, unique = true, updatable = false)
 	private UUID id;
 
 	@Column(name = "NAME", unique = true, nullable = false, columnDefinition = "VARCHAR(20)")

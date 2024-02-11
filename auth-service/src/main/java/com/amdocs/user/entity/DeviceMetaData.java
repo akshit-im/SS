@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,9 +39,9 @@ public class DeviceMetaData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@UuidGenerator
-	@GeneratedValue
-	@Column(name = "ID", nullable = false, updatable = false)
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "UUID", parameters = {@Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+	@Column(name = "ID", nullable = false, unique = true, updatable = false)
 	private UUID id;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = User.class)
