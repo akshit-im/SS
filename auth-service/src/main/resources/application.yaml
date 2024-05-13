@@ -20,11 +20,3 @@ spring:
 #        - OPTIONS
 #        - HEAD
 #        maxAge: 3600s
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${eureka.client.serviceUrl.defaultZone}
-management:
-  zipkin:
-    tracing:
-      endpoint: ${spring.zipkin.baseUrl}

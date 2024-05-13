@@ -11,11 +11,11 @@ spring:
           username: sudeepsingh.np@gmail.coom
           password: glpat-MfLRbdQnLKiYAZhHQ4UW
   zipkin:
-    baseUrl: http://zipkin.test.com:9411/api/v2/spans
+    baseUrl: http://zipkin.svc.cluster.local:9411/api/v2/spans
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery.test.com/eureka
+      defaultZone: http://discovery.svc.cluster.local/eureka
 management:
   zipkin:
     tracing:

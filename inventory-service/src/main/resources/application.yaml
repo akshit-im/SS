@@ -7,11 +7,3 @@ spring:
     base-package: ${services.inventory.packages}
 upload:
   path: /test
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${eureka.client.serviceUrl.defaultZone}
-management:
-  zipkin:
-    tracing:
-      endpoint: ${spring.zipkin.baseUrl}

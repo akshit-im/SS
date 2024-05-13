@@ -5,11 +5,3 @@ spring:
     name: enquiry-service
     label: ${spring.application.name}
     base-package: ${services.enquiry.packages}
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${eureka.client.serviceUrl.defaultZone}
-management:
-  zipkin:
-    tracing:
-      endpoint: ${spring.zipkin.baseUrl}

@@ -1,25 +1,28 @@
 package com.amdocs.setup;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import com.amdocs.geo.entity.City;
 import com.amdocs.geo.entity.Country;
@@ -40,32 +43,24 @@ public class GeoDBSetup {
 
 		try {
 			if (geoSvc.country().size() < 1) {
-				File countryFile = null;
-				try {
-					countryFile = ResourceUtils.getFile("classpath:geo/countries.csv");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				if (!countryFile.exists()) {
-					System.err.println("Error: File does not exist.\n");
-					return;
-				}
-				if (!countryFile.canRead()) {
-					System.err.println("Error: File cannot be opened for reading.\n");
-					return;
-				}
-				Scanner scanner = null;
-				try {
-					scanner = new Scanner(countryFile);
-				} catch (FileNotFoundException e) {
-					System.err.println("Error: File " + countryFile.getAbsolutePath() + " cannot be opened for reading.\n");
-					return;
-				}
+				List<String> countryListIn = new ArrayList<>();
+				List<String> stateListIn = new ArrayList<>();
+				List<String> cityListIn = new ArrayList<>();
 				String[] line = null;
+
+				ClassPathResource cl = new ClassPathResource("geo/countries.csv");
+				URL url = cl.getURL();
+				try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
+					Stream<String> stream = br.lines();
+					countryListIn = stream.collect(Collectors.toList());
+				} catch (IOException e) {
+					System.err.println("file error " + e.getMessage());
+				}
 				Map<Integer, UUID> countryMap = new HashMap<>();
 				List<Country> countryList = new LinkedList<Country>();
-				while (scanner.hasNextLine()) {
-					line = scanner.nextLine().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+				Iterator<String> itr = countryListIn.iterator();
+				while (itr.hasNext()) {
+					line = itr.next().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 					if (line[0].equalsIgnoreCase("id"))
 						continue;
 					Country country = new Country();
@@ -115,30 +110,19 @@ public class GeoDBSetup {
 				}
 				geoSvc.saveCountry(countryList);
 
-				File stateFile = null;
-				try {
-					stateFile = ResourceUtils.getFile("classpath:geo/states.csv");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				if (!stateFile.exists()) {
-					System.err.println("Error: File does not exist.\n");
-					return;
-				}
-				if (!stateFile.canRead()) {
-					System.err.println("Error: File cannot be opened for reading.\n");
-					return;
-				}
-				try {
-					scanner = new Scanner(stateFile);
-				} catch (FileNotFoundException e) {
-					System.err.println("Error: File " + stateFile.getAbsolutePath() + " cannot be opened for reading.\n");
-					return;
+				cl = new ClassPathResource("geo/states.csv");
+				url = cl.getURL();
+				try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
+					Stream<String> stream = br.lines();
+					stateListIn = stream.collect(Collectors.toList());
+				} catch (IOException e) {
+					System.err.println("file error " + e.getMessage());
 				}
 				Map<Integer, UUID> stateMap = new HashMap<>();
 				Set<State> stateList = new HashSet<State>();
-				while (scanner.hasNextLine()) {
-					line = scanner.nextLine().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+				itr = stateListIn.iterator();
+				while (itr.hasNext()) {
+					line = itr.next().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 					if (line[0].equalsIgnoreCase("id"))
 						continue;
 					State state = new State();
@@ -159,29 +143,19 @@ public class GeoDBSetup {
 				System.out.println("State count" + stateList.size());
 				geoSvc.saveState(stateList);
 
-				File cityFile = null;
-				try {
-					cityFile = ResourceUtils.getFile("classpath:geo/cities.csv");
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				cl = new ClassPathResource("geo/cities.csv");
+				url = cl.getURL();
+				try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
+					Stream<String> stream = br.lines();
+					cityListIn = stream.collect(Collectors.toList());
+				} catch (IOException e) {
+					System.err.println("file error " + e.getMessage());
 				}
-				if (!cityFile.exists()) {
-					System.err.println("Error: File does not exist.\n");
-					return;
-				}
-				if (!cityFile.canRead()) {
-					System.err.println("Error: File cannot be opened for reading.\n");
-					return;
-				}
-				try {
-					scanner = new Scanner(cityFile);
-				} catch (FileNotFoundException e) {
-					System.err.println("Error: File " + cityFile.getAbsolutePath() + " cannot be opened for reading.\n");
-					return;
-				}
+
 				Set<City> cityList = new HashSet<City>();
-				while (scanner.hasNextLine()) {
-					line = scanner.nextLine().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+				itr = cityListIn.iterator();
+				while (itr.hasNext()) {
+					line = itr.next().split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 					if (line[0].equalsIgnoreCase("id"))
 						continue;
 					City city = new City();

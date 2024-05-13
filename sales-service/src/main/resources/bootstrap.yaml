@@ -4,4 +4,4 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
-      uri: http://config.test.com
+      uri: http://config.svc.cluster.local

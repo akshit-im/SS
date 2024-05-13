@@ -7,10 +7,10 @@ spring:
     config:
       enabled: false
   zipkin:
-    baseUrl: http://zipkin.test.com:9411/api/v2/spans
+    baseUrl: http://zipkin.svc.cluster.local:9411/api/v2/spans
 eureka:
   instance:
-    hostname: discovery.test.com
+    hostname: discovery.svc.cluster.local
   server:
     peer-node-read-timeout-ms: 50000
   client:
