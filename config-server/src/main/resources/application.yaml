@@ -7,9 +7,9 @@ spring:
     config:
       server:
         git:
-          uri: https://gitlab.com/JMaverick/config-server
+          uri: https://gitlab.com/akshit/config-server
           username: sudeepsingh.np@gmail.coom
-          password: glpat-MfLRbdQnLKiYAZhHQ4UW
+          password: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   zipkin:
     baseUrl: http://zipkin.svc.cluster.local:9411/api/v2/spans
 eureka:
